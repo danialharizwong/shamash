@@ -1,0 +1,788 @@
+{
+ "groups": [
+  {
+   "id": "open",
+   "label": "OPEN ARCHIVE",
+   "note": "Free imagery: search, render, download"
+  },
+  {
+   "id": "daily",
+   "label": "DAILY GLOBAL",
+   "note": "Wide-swath daily mosaics"
+  },
+  {
+   "id": "opentrack",
+   "label": "OPEN / TRACK ONLY",
+   "note": "Free data held in other catalogues"
+  },
+  {
+   "id": "vhr",
+   "label": "COMMERCIAL OPTICAL",
+   "note": "Tasked very-high-resolution imagers"
+  },
+  {
+   "id": "sar",
+   "label": "COMMERCIAL RADAR",
+   "note": "Tasked SAR, day/night all-weather"
+  },
+  {
+   "id": "state",
+   "label": "STATE OPERATED",
+   "note": "Government imaging fleets"
+  }
+ ],
+ "fleets": [
+  {
+   "id": "sentinel-2",
+   "name": "SENTINEL-2",
+   "group": "open",
+   "operator": "ESA / COPERNICUS",
+   "sensor": "optical",
+   "instrument": "MSI 13-BAND MULTISPECTRAL",
+   "gsd": "10 M",
+   "revisit": "5 D (2-3 D MID-LAT)",
+   "match": [
+    "^SENTINEL-2[A-D]$"
+   ],
+   "access": "OPEN. LEVEL-2A SURFACE REFLECTANCE VIA MICROSOFT PLANETARY COMPUTER",
+   "archive": {
+    "collection": "sentinel-2-l2a",
+    "cloud": true,
+    "minzoom": 6,
+    "maxzoom": 14
+   },
+   "plan": "sentinel-2",
+   "geom": {
+    "mode": "nadir",
+    "swathKm": 290,
+    "daylight": true
+   },
+   "links": [
+    {
+     "label": "COPERNICUS BROWSER",
+     "url": "https://browser.dataspace.copernicus.eu/"
+    },
+    {
+     "label": "ESA ACQUISITION PLANS",
+     "url": "https://sentinels.copernicus.eu/web/sentinel/copernicus/sentinel-2/acquisition-plans"
+    }
+   ],
+   "color": "#ffc24a",
+   "on": true
+  },
+  {
+   "id": "sentinel-1",
+   "name": "SENTINEL-1",
+   "group": "open",
+   "operator": "ESA / COPERNICUS",
+   "sensor": "sar",
+   "instrument": "C-BAND SAR (IW/EW/SM)",
+   "gsd": "10 M (IW GRD)",
+   "revisit": "6-12 D",
+   "match": [
+    "^SENTINEL-1[A-D]$"
+   ],
+   "access": "OPEN. GROUND RANGE DETECTED (GRD) VIA MICROSOFT PLANETARY COMPUTER",
+   "archive": {
+    "collection": "sentinel-1-grd",
+    "cloud": false,
+    "minzoom": 5,
+    "maxzoom": 14
+   },
+   "plan": "sentinel-1",
+   "geom": {
+    "mode": "side",
+    "side": "right",
+    "nearKm": 345,
+    "farKm": 600,
+    "swathKm": 250,
+    "daylight": false
+   },
+   "links": [
+    {
+     "label": "COPERNICUS BROWSER",
+     "url": "https://browser.dataspace.copernicus.eu/"
+    },
+    {
+     "label": "ESA ACQUISITION PLANS",
+     "url": "https://sentinels.copernicus.eu/web/sentinel/copernicus/sentinel-1/acquisition-plans"
+    }
+   ],
+   "color": "#ff5fb4",
+   "on": true
+  },
+  {
+   "id": "landsat",
+   "name": "LANDSAT 8/9",
+   "group": "open",
+   "operator": "USGS / NASA",
+   "sensor": "optical",
+   "instrument": "OLI MULTISPECTRAL + TIRS THERMAL",
+   "gsd": "30 M (100 M THERMAL)",
+   "revisit": "8 D COMBINED",
+   "match": [
+    "^LANDSAT [89]$"
+   ],
+   "access": "OPEN. COLLECTION 2 LEVEL-2 VIA MICROSOFT PLANETARY COMPUTER",
+   "archive": {
+    "collection": "landsat-c2-l2",
+    "cloud": true,
+    "platforms": [
+     "landsat-8",
+     "landsat-9"
+    ],
+    "minzoom": 5,
+    "maxzoom": 13
+   },
+   "plan": null,
+   "geom": {
+    "mode": "nadir",
+    "swathKm": 185,
+    "daylight": true
+   },
+   "links": [
+    {
+     "label": "USGS EARTHEXPLORER",
+     "url": "https://earthexplorer.usgs.gov/"
+    },
+    {
+     "label": "LANDSAT ACQUISITION TOOL",
+     "url": "https://landsat.usgs.gov/landsat_acq"
+    }
+   ],
+   "color": "#62c8ff",
+   "on": true
+  },
+  {
+   "id": "viirs",
+   "name": "VIIRS (JPSS)",
+   "group": "daily",
+   "operator": "NOAA / NASA",
+   "sensor": "optical",
+   "instrument": "VIIRS IMAGING RADIOMETER + DAY/NIGHT BAND",
+   "gsd": "375-750 M",
+   "revisit": "2X DAILY PER SAT",
+   "match": [
+    "^SUOMI NPP$",
+    "^NOAA 2[01]( |$)"
+   ],
+   "access": "OPEN. DAILY GLOBAL MOSAICS VIA NASA GIBS",
+   "geom": {
+    "mode": "nadir",
+    "swathKm": 3060,
+    "daylight": false
+   },
+   "gibs": [
+    {
+     "id": "n20-true",
+     "label": "NOAA-20 TRUE COLOUR",
+     "layer": "VIIRS_NOAA20_CorrectedReflectance_TrueColor",
+     "level": 9,
+     "ext": "jpg",
+     "hint": "Smoke plumes, dust, flooding extent, snow"
+    },
+    {
+     "id": "n21-true",
+     "label": "NOAA-21 TRUE COLOUR",
+     "layer": "VIIRS_NOAA21_CorrectedReflectance_TrueColor",
+     "level": 9,
+     "ext": "jpg",
+     "hint": "Second daily look, ~50 min offset"
+    },
+    {
+     "id": "n20-swir",
+     "label": "NOAA-20 FALSE COLOUR (M11-I2-I1)",
+     "layer": "VIIRS_NOAA20_CorrectedReflectance_BandsM11-I2-I1",
+     "level": 9,
+     "ext": "jpg",
+     "hint": "Burn scars red-brown, active fire bright, water black"
+    },
+    {
+     "id": "n21-swir",
+     "label": "NOAA-21 FALSE COLOUR (M11-I2-I1)",
+     "layer": "VIIRS_NOAA21_CorrectedReflectance_BandsM11-I2-I1",
+     "level": 9,
+     "ext": "jpg",
+     "hint": "Burn scars red-brown, active fire bright, water black"
+    },
+    {
+     "id": "n20-dnb",
+     "label": "NOAA-20 NIGHT LIGHTS (DNB)",
+     "layer": "VIIRS_NOAA20_DayNightBand_At_Sensor_Radiance",
+     "level": 8,
+     "ext": "png",
+     "hint": "Night-time lights: blackouts, displacement, gas flares"
+    },
+    {
+     "id": "n21-dnb",
+     "label": "NOAA-21 NIGHT LIGHTS (DNB)",
+     "layer": "VIIRS_NOAA21_DayNightBand_At_Sensor_Radiance",
+     "level": 8,
+     "ext": "png",
+     "hint": "Night-time lights: blackouts, displacement, gas flares"
+    }
+   ],
+   "links": [
+    {
+     "label": "NASA WORLDVIEW",
+     "url": "https://worldview.earthdata.nasa.gov/"
+    },
+    {
+     "label": "FIRMS ACTIVE FIRE MAP",
+     "url": "https://firms.modaps.eosdis.nasa.gov/map/"
+    }
+   ],
+   "color": "#b79bff",
+   "on": true
+  },
+  {
+   "id": "modis",
+   "name": "MODIS (TERRA/AQUA)",
+   "group": "daily",
+   "operator": "NASA",
+   "sensor": "optical",
+   "instrument": "MODIS 36-BAND RADIOMETER",
+   "gsd": "250-1000 M",
+   "revisit": "DAILY PER SAT",
+   "match": [
+    "^TERRA$",
+    "^AQUA$"
+   ],
+   "access": "OPEN. DAILY GLOBAL MOSAICS VIA NASA GIBS",
+   "geom": {
+    "mode": "nadir",
+    "swathKm": 2330,
+    "daylight": false
+   },
+   "gibs": [
+    {
+     "id": "terra-true",
+     "label": "TERRA TRUE COLOUR (AM PASS)",
+     "layer": "MODIS_Terra_CorrectedReflectance_TrueColor",
+     "level": 9,
+     "ext": "jpg",
+     "hint": "Morning overpass ~10:30 local"
+    },
+    {
+     "id": "aqua-true",
+     "label": "AQUA TRUE COLOUR (PM PASS)",
+     "layer": "MODIS_Aqua_CorrectedReflectance_TrueColor",
+     "level": 9,
+     "ext": "jpg",
+     "hint": "Afternoon overpass ~13:30 local"
+    },
+    {
+     "id": "terra-721",
+     "label": "TERRA FALSE COLOUR (7-2-1)",
+     "layer": "MODIS_Terra_CorrectedReflectance_Bands721",
+     "level": 9,
+     "ext": "jpg",
+     "hint": "Burn scars, flood water, vegetation"
+    },
+    {
+     "id": "aqua-721",
+     "label": "AQUA FALSE COLOUR (7-2-1)",
+     "layer": "MODIS_Aqua_CorrectedReflectance_Bands721",
+     "level": 9,
+     "ext": "jpg",
+     "hint": "Burn scars, flood water, vegetation"
+    }
+   ],
+   "links": [
+    {
+     "label": "NASA WORLDVIEW",
+     "url": "https://worldview.earthdata.nasa.gov/"
+    },
+    {
+     "label": "FIRMS ACTIVE FIRE MAP",
+     "url": "https://firms.modaps.eosdis.nasa.gov/map/"
+    }
+   ],
+   "color": "#ff9147",
+   "on": true
+  },
+  {
+   "id": "sentinel-3",
+   "name": "SENTINEL-3",
+   "group": "opentrack",
+   "operator": "ESA / EUMETSAT",
+   "sensor": "optical",
+   "instrument": "OLCI OCEAN/LAND COLOUR + SLSTR THERMAL",
+   "gsd": "300 M",
+   "revisit": "< 2 D",
+   "match": [
+    "^SENTINEL-3[A-D]$"
+   ],
+   "access": "OPEN VIA COPERNICUS DATA SPACE (NOT INDEXED HERE)",
+   "geom": {
+    "mode": "nadir",
+    "swathKm": 1270,
+    "daylight": true
+   },
+   "links": [
+    {
+     "label": "COPERNICUS BROWSER",
+     "url": "https://browser.dataspace.copernicus.eu/"
+    }
+   ],
+   "color": "#7dffc0",
+   "on": true
+  },
+  {
+   "id": "nisar",
+   "name": "NISAR",
+   "group": "opentrack",
+   "operator": "NASA / ISRO",
+   "sensor": "sar",
+   "instrument": "L-BAND + S-BAND SAR",
+   "gsd": "3-10 M",
+   "revisit": "12 D",
+   "match": [
+    "^NISAR$"
+   ],
+   "access": "OPEN VIA ALASKA SATELLITE FACILITY (EARTHDATA LOGIN)",
+   "geom": {
+    "mode": "side",
+    "side": "left",
+    "nearKm": 425,
+    "farKm": 680,
+    "swathKm": 240,
+    "daylight": false
+   },
+   "links": [
+    {
+     "label": "ASF VERTEX SEARCH",
+     "url": "https://search.asf.alaska.edu/"
+    }
+   ],
+   "color": "#ff9ecf",
+   "on": true
+  },
+  {
+   "id": "maxar",
+   "name": "MAXAR WORLDVIEW / LEGION",
+   "group": "vhr",
+   "operator": "VANTOR (MAXAR)",
+   "sensor": "optical",
+   "instrument": "PAN + MULTISPECTRAL VHR",
+   "gsd": "0.3-0.5 M",
+   "revisit": "INTRADAY (TASKED)",
+   "match": [
+    "^WORLDVIEW-\\d",
+    "^GEOEYE 1$",
+    "^LEGION \\d"
+   ],
+   "access": "COMMERCIAL. FREE RELEASES FOR MAJOR DISASTERS VIA OPEN DATA PROGRAM",
+   "geom": {
+    "mode": "agile",
+    "swathKm": 14,
+    "reachKm": 600,
+    "daylight": true
+   },
+   "links": [
+    {
+     "label": "MAXAR OPEN DATA PROGRAM",
+     "url": "https://www.maxar.com/open-data"
+    }
+   ],
+   "color": "#f3f0d8",
+   "on": true
+  },
+  {
+   "id": "airbus",
+   "name": "AIRBUS PLEIADES / SPOT",
+   "group": "vhr",
+   "operator": "AIRBUS DEFENCE & SPACE",
+   "sensor": "optical",
+   "instrument": "PAN + MULTISPECTRAL VHR",
+   "gsd": "0.3-1.5 M",
+   "revisit": "DAILY (TASKED)",
+   "match": [
+    "^PLEIADES",
+    "^SPOT [67]$"
+   ],
+   "access": "COMMERCIAL. DISASTER RELEASES VIA INTERNATIONAL CHARTER / COPERNICUS EMS",
+   "geom": {
+    "mode": "agile",
+    "swathKm": 20,
+    "reachKm": 500,
+    "daylight": true
+   },
+   "links": [
+    {
+     "label": "COPERNICUS EMS ACTIVATIONS",
+     "url": "https://activations.emergency.copernicus.eu/"
+    },
+    {
+     "label": "INTERNATIONAL DISASTERS CHARTER",
+     "url": "https://disasterscharter.org/"
+    }
+   ],
+   "color": "#d9c9ff",
+   "on": true
+  },
+  {
+   "id": "planet",
+   "name": "PLANET SKYSAT / PELICAN",
+   "group": "vhr",
+   "operator": "PLANET LABS",
+   "sensor": "optical",
+   "instrument": "FRAME VHR + VIDEO",
+   "gsd": "0.3-0.5 M",
+   "revisit": "INTRADAY (TASKED)",
+   "match": [
+    "^SKYSAT",
+    "^PELICAN"
+   ],
+   "access": "COMMERCIAL. SELECTED DISASTER DATA RELEASED TO RESPONDERS",
+   "geom": {
+    "mode": "agile",
+    "swathKm": 8,
+    "reachKm": 300,
+    "daylight": true
+   },
+   "links": [
+    {
+     "label": "PLANET DISASTER DATA",
+     "url": "https://www.planet.com/disasterdata/"
+    }
+   ],
+   "color": "#8ef0ff",
+   "on": false
+  },
+  {
+   "id": "blacksky",
+   "name": "BLACKSKY GLOBAL",
+   "group": "vhr",
+   "operator": "BLACKSKY",
+   "sensor": "optical",
+   "instrument": "FRAME VHR",
+   "gsd": "0.35-1 M",
+   "revisit": "HOURLY-CLASS (TASKED)",
+   "match": [
+    "^GLOBAL-\\d"
+   ],
+   "access": "COMMERCIAL",
+   "geom": {
+    "mode": "agile",
+    "swathKm": 6,
+    "reachKm": 300,
+    "daylight": true
+   },
+   "links": [],
+   "color": "#ffe8a0",
+   "on": false
+  },
+  {
+   "id": "iceye",
+   "name": "ICEYE",
+   "group": "sar",
+   "operator": "ICEYE",
+   "sensor": "sar",
+   "instrument": "X-BAND SAR",
+   "gsd": "0.25-3 M",
+   "revisit": "INTRADAY (TASKED)",
+   "match": [
+    "^ICEYE"
+   ],
+   "access": "COMMERCIAL. FLOOD / DISASTER BRIEFINGS PUBLISHED AD HOC",
+   "geom": {
+    "mode": "agile",
+    "swathKm": 30,
+    "minKm": 150,
+    "reachKm": 450,
+    "daylight": false
+   },
+   "links": [],
+   "color": "#ff78dc",
+   "on": false
+  },
+  {
+   "id": "capella",
+   "name": "CAPELLA",
+   "group": "sar",
+   "operator": "CAPELLA SPACE",
+   "sensor": "sar",
+   "instrument": "X-BAND SAR",
+   "gsd": "0.25-1.2 M",
+   "revisit": "INTRADAY (TASKED)",
+   "match": [
+    "^CAPELLA"
+   ],
+   "access": "COMMERCIAL. FREE OPEN DATA CATALOGUE (STAC) AVAILABLE",
+   "geom": {
+    "mode": "agile",
+    "swathKm": 10,
+    "minKm": 230,
+    "reachKm": 600,
+    "daylight": false
+   },
+   "links": [
+    {
+     "label": "CAPELLA OPEN DATA",
+     "url": "https://www.capellaspace.com/earth-observation/gallery"
+    }
+   ],
+   "color": "#ffa8e8",
+   "on": true
+  },
+  {
+   "id": "umbra",
+   "name": "UMBRA",
+   "group": "sar",
+   "operator": "UMBRA",
+   "sensor": "sar",
+   "instrument": "X-BAND SAR",
+   "gsd": "0.16-1 M",
+   "revisit": "INTRADAY (TASKED)",
+   "match": [
+    "^UMBRA"
+   ],
+   "access": "COMMERCIAL. FREE OPEN DATA PROGRAM (AWS)",
+   "geom": {
+    "mode": "agile",
+    "swathKm": 5,
+    "minKm": 150,
+    "reachKm": 700,
+    "daylight": false
+   },
+   "links": [
+    {
+     "label": "UMBRA OPEN DATA",
+     "url": "https://umbra.space/open-data/"
+    }
+   ],
+   "color": "#cf9dff",
+   "on": true
+  },
+  {
+   "id": "cosmo",
+   "name": "COSMO-SKYMED",
+   "group": "sar",
+   "operator": "ASI / E-GEOS",
+   "sensor": "sar",
+   "instrument": "X-BAND SAR",
+   "gsd": "1-3 M",
+   "revisit": "< 12 H (CONSTELLATION)",
+   "match": [
+    "^COSMO-SKYMED",
+    "^CSG-\\d"
+   ],
+   "access": "COMMERCIAL / DUAL-USE",
+   "geom": {
+    "mode": "agile",
+    "swathKm": 40,
+    "minKm": 230,
+    "reachKm": 800,
+    "daylight": false
+   },
+   "links": [],
+   "color": "#ff8a8a",
+   "on": true
+  },
+  {
+   "id": "tsx",
+   "name": "TERRASAR-X / PAZ",
+   "group": "sar",
+   "operator": "DLR / AIRBUS / HISDESAT",
+   "sensor": "sar",
+   "instrument": "X-BAND SAR",
+   "gsd": "0.25-3 M",
+   "revisit": "2.5 D",
+   "match": [
+    "^TERRASAR-X$",
+    "^TANDEM-X$",
+    "^PAZ$"
+   ],
+   "access": "COMMERCIAL / SCIENCE PROPOSALS",
+   "geom": {
+    "mode": "agile",
+    "swathKm": 30,
+    "minKm": 190,
+    "reachKm": 520,
+    "daylight": false
+   },
+   "links": [],
+   "color": "#ffb68a",
+   "on": true
+  },
+  {
+   "id": "radarsat",
+   "name": "RADARSAT-2 / RCM",
+   "group": "sar",
+   "operator": "MDA / CSA",
+   "sensor": "sar",
+   "instrument": "C-BAND SAR",
+   "gsd": "1-100 M",
+   "revisit": "DAILY (RCM)",
+   "match": [
+    "^RADARSAT-2$",
+    "^RCM-\\d"
+   ],
+   "access": "COMMERCIAL / GOVERNMENT. CHARTER RELEASES",
+   "geom": {
+    "mode": "agile",
+    "swathKm": 125,
+    "minKm": 300,
+    "reachKm": 850,
+    "daylight": false
+   },
+   "links": [
+    {
+     "label": "INTERNATIONAL DISASTERS CHARTER",
+     "url": "https://disasterscharter.org/"
+    }
+   ],
+   "color": "#ffd5a8",
+   "on": true
+  },
+  {
+   "id": "jpsar",
+   "name": "SYNSPECTIVE / IQPS",
+   "group": "sar",
+   "operator": "SYNSPECTIVE / IQPS (JAPAN)",
+   "sensor": "sar",
+   "instrument": "X-BAND SAR",
+   "gsd": "0.5-3 M",
+   "revisit": "TASKED",
+   "match": [
+    "^STRIX",
+    "^QPS-SAR"
+   ],
+   "access": "COMMERCIAL",
+   "geom": {
+    "mode": "agile",
+    "swathKm": 20,
+    "minKm": 150,
+    "reachKm": 500,
+    "daylight": false
+   },
+   "links": [],
+   "color": "#ffc4ee",
+   "on": false
+  },
+  {
+   "id": "alos",
+   "name": "ALOS-2 / ALOS-4",
+   "group": "state",
+   "operator": "JAXA",
+   "sensor": "sar",
+   "instrument": "L-BAND SAR (PALSAR)",
+   "gsd": "3-10 M",
+   "revisit": "14 D",
+   "match": [
+    "^ALOS-[24]"
+   ],
+   "access": "RESTRICTED / CHARTER. SELECTED PRODUCTS OPEN",
+   "geom": {
+    "mode": "agile",
+    "swathKm": 70,
+    "minKm": 100,
+    "reachKm": 1000,
+    "daylight": false
+   },
+   "links": [
+    {
+     "label": "SENTINEL ASIA",
+     "url": "https://sentinel-asia.org/"
+    }
+   ],
+   "color": "#a9cdff",
+   "on": true
+  },
+  {
+   "id": "kompsat",
+   "name": "KOMPSAT",
+   "group": "state",
+   "operator": "KARI (ROK)",
+   "sensor": "multi",
+   "instrument": "VHR OPTICAL / X-BAND SAR",
+   "gsd": "0.3-1 M",
+   "revisit": "TASKED",
+   "match": [
+    "^KOMPSAT"
+   ],
+   "access": "COMMERCIAL / GOVERNMENT",
+   "geom": {
+    "mode": "agile",
+    "swathKm": 13,
+    "reachKm": 450,
+    "daylight": false
+   },
+   "links": [],
+   "color": "#a8ffcf",
+   "on": false
+  },
+  {
+   "id": "gaofen",
+   "name": "GAOFEN",
+   "group": "state",
+   "operator": "CNSA (PRC)",
+   "sensor": "multi",
+   "instrument": "OPTICAL / SAR / HYPERSPECTRAL (MIXED)",
+   "gsd": "0.1-16 M",
+   "revisit": "FLEET DEPENDENT",
+   "match": [
+    "^GAOFEN"
+   ],
+   "access": "CLOSED",
+   "geom": {
+    "mode": "agile",
+    "swathKm": 60,
+    "reachKm": 400,
+    "daylight": false
+   },
+   "links": [],
+   "color": "#ff6a5c",
+   "on": false
+  },
+  {
+   "id": "jilin",
+   "name": "JILIN-1",
+   "group": "state",
+   "operator": "CHANG GUANG (PRC)",
+   "sensor": "optical",
+   "instrument": "VHR OPTICAL + VIDEO",
+   "gsd": "0.5-1 M",
+   "revisit": "INTRADAY (FLEET)",
+   "match": [
+    "^JILIN-1"
+   ],
+   "access": "COMMERCIAL (PRC)",
+   "geom": {
+    "mode": "agile",
+    "swathKm": 17,
+    "reachKm": 400,
+    "daylight": true
+   },
+   "links": [],
+   "color": "#ff9c6e",
+   "on": false
+  },
+  {
+   "id": "roscosmos",
+   "name": "RESURS / KANOPUS / KONDOR",
+   "group": "state",
+   "operator": "ROSCOSMOS (RF)",
+   "sensor": "multi",
+   "instrument": "OPTICAL / S-BAND SAR (MIXED)",
+   "gsd": "1-3 M",
+   "revisit": "FLEET DEPENDENT",
+   "match": [
+    "^RESURS-P",
+    "^KANOPUS-V",
+    "^KONDOR-FKA"
+   ],
+   "access": "CLOSED",
+   "geom": {
+    "mode": "agile",
+    "swathKm": 38,
+    "reachKm": 450,
+    "daylight": false
+   },
+   "links": [],
+   "color": "#ff4d4d",
+   "on": false
+  }
+ ]
+}

@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="dark">
+<title>SHAMASH // Earth Observation Watch</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23020805'/%3E%3Cg fill='%23ffb43b'%3E%3Cpath d='M16 2l2 11-2 1-2-1zM16 30l-2-11 2-1 2 1zM2 16l11-2 1 2-1 2zM30 16l-11 2-1-2 1-2z'/%3E%3Ccircle cx='16' cy='16' r='3.4'/%3E%3C/g%3E%3Cg fill='none' stroke='%23ffb43b' stroke-width='1.3'%3E%3Cpath d='M18.5 13.5q2-0.5 2.5-2.5t2.5-2.5M13.5 13.5q-2-0.5-2.5-2.5T8.5 8.5M13.5 18.5q-2 .5-2.5 2.5t-2.5 2.5M18.5 18.5q2 .5 2.5 2.5t2.5 2.5'/%3E%3C/g%3E%3C/svg%3E">
+<link rel="stylesheet" href="vendor/fonts/fonts.css">
+<link rel="stylesheet" href="vendor/maplibre-gl.css">
+<link rel="stylesheet" href="css/shamash.css">
+</head>
+<body class="crt-on">
+<div id="globe" aria-label="Globe: satellites, ground tracks and footprints"></div>
+
+<div id="classbar" aria-hidden="true">
+  <span class="cb-l"><i class="dot"></i>WATCH ACTIVE</span>
+  <span class="cb-c">UNCLASSIFIED <b>//</b> OPEN SOURCE <b>//</b> FOR RESEARCH &amp; HUMANITARIAN USE</span>
+  <span class="cb-r" id="cb-dtg">------Z---</span>
+</div>
+
+<header id="top">
+  <div class="brand">
+    <canvas id="brand-mark" width="88" height="88" aria-hidden="true"></canvas>
+    <div class="brand-text">
+      <h1>SHAMASH</h1>
+      <div class="brand-sub">EARTH OBSERVATION WATCH</div>
+    </div>
+  </div>
+
+  <form id="locate" autocomplete="off" role="search">
+    <label for="locate-in">LOCATE</label>
+    <input id="locate-in" type="text" spellcheck="false" placeholder="PLACE · LAT, LON · NORAD">
+    <kbd>/</kbd>
+    <div id="locate-out" class="panel" hidden></div>
+  </form>
+
+  <div class="clock" id="clock">
+    <div class="clock-t"><span id="clock-time">--:--:--</span><small>UTC</small></div>
+    <div class="clock-d"><span id="clock-date">-- --- ----</span><span id="clock-mode" class="tag">LIVE</span></div>
+  </div>
+
+  <div class="seg" role="group" aria-label="Board clock">
+    <button data-jump="-3600" title="Back one hour">−1H</button>
+    <button data-jump="-600" title="Back ten minutes">−10M</button>
+    <button id="btn-live" class="on" title="Return to real time (L)">LIVE</button>
+    <button data-jump="600" title="Forward ten minutes">+10M</button>
+    <button data-jump="3600" title="Forward one hour">+1H</button>
+    <i class="sep"></i>
+    <button data-rate="1" class="on" title="Real time">1×</button>
+    <button data-rate="60" title="One minute per second">60×</button>
+    <button data-rate="600" title="Ten minutes per second">600×</button>
+  </div>
+
+  <div class="seg" role="group" aria-label="Basemap and display">
+    <button id="base-vector" class="on" title="Phosphor vector board">VECTOR</button>
+    <button id="base-imagery" title="Satellite imagery basemap">IMAGERY</button>
+    <button id="base-live" title="Newest geostationary weather imagery">LIVE</button>
+    <select id="live-variant" aria-label="Live product" hidden></select>
+    <i class="sep"></i>
+    <button id="tg-grid" class="on" title="Graticule">GRID</button>
+    <button id="tg-night" class="on" title="Night and twilight">NIGHT</button>
+    <button id="tg-crt" class="on" title="CRT display effects">CRT</button>
+  </div>
+</header>
+
+<aside id="left" class="panel" aria-label="Assets, watch and intel">
+  <nav class="tabs" role="tablist">
+    <button id="tab-assets" class="on" role="tab" data-pane="pane-assets"><b>01</b>ASSETS <span class="ct" id="ct-assets"></span></button>
+    <button id="tab-watch" role="tab" data-pane="pane-watch" title="Next looks at the focus point"><b>02</b>WATCH <span class="ct" id="ct-watch"></span></button>
+    <button id="tab-intel" role="tab" data-pane="pane-intel" title="Telegram channel monitor"><b>03</b>INTEL <span class="ct" id="ct-intel"></span></button>
+  </nav>
+  <div class="pane" id="pane-assets" role="tabpanel">
+    <div class="scroll" id="roster"></div>
+    <div class="overlays" id="ov-firms"></div>
+    <div class="overlays" id="ov-ais"></div>
+  </div>
+  <div class="pane" id="pane-watch" role="tabpanel" hidden></div>
+  <div class="pane" id="pane-intel" role="tabpanel" hidden></div>
+</aside>
+
+<aside id="right" class="panel" aria-label="Selected fleet" hidden>
+  <div class="phead"><span class="pidx">04</span><span id="right-title">MISSION</span><button id="right-x" class="x" title="Close (Esc)">✕</button></div>
+  <div class="scroll" id="mission"></div>
+</aside>
+
+<section id="satcard" class="panel" aria-label="Selected satellite" hidden></section>
+
+<footer id="bottom">
+  <div class="readout" id="readout">
+    <div><span class="k">CURSOR</span><span id="ro-cursor">— — —</span></div>
+    <div><span class="k">FOCUS</span><span id="ro-focus">NONE</span></div>
+    <div><span class="k">SUN</span><span id="ro-sun">—</span></div>
+    <div><span class="k">BASE</span><span id="ro-base">VECTOR</span></div>
+    <div><span class="k">IN VIEW</span><span id="ro-sats">0</span></div>
+    <div class="lamps" id="lamps" aria-label="Data links"></div>
+    <div class="ro-help"><kbd>?</kbd> KEYS</div>
+  </div>
+  <div id="timeline"><canvas id="tl"></canvas><div id="tl-empty">SELECT A FLEET AND SCAN TO PLOT ACQUISITIONS</div></div>
+  <div class="credits" id="credits"></div>
+</footer>
+
+<div id="reticle" hidden aria-hidden="true">
+  <div class="sweep"></div><div class="ring r1"></div><div class="ring r2"></div>
+  <div class="cross"></div><div class="tag" id="reticle-tag"></div>
+</div>
+
+<div id="tip" hidden></div>
+<div id="toasts" aria-live="polite"></div>
+<div id="alerts" aria-live="assertive"></div>
+<div id="keys" class="panel" hidden></div>
+
+<div id="crt" aria-hidden="true"><div class="scan"></div><div class="roll"></div><div class="grain"></div><div class="vig"></div></div>
+
+<div id="boot">
+  <div class="boot-box">
+    <canvas id="boot-mark" width="240" height="240"></canvas>
+    <div class="boot-title">SHAMASH</div>
+    <div class="boot-sub">EARTH OBSERVATION WATCH BOARD · MK I</div>
+    <pre id="boot-log"></pre>
+  </div>
+</div>
+
+<script src="vendor/maplibre-gl.js"></script>
+<script src="vendor/satellite.min.js"></script>
+<script type="module" src="js/main.js"></script>
+</body>
+</html>

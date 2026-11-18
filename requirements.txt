@@ -1,0 +1,3 @@
+# Optional extras. The core board needs only the Python standard library.
+anthropic>=1.0      # Intel: place extraction from Telegram posts (Python 3.10+)
+websockets>=14      # AIS: aisstream.io whole-globe feed (Fintraffic works without it)
