@@ -20,7 +20,7 @@ Python standard library · plain ES modules · no build step · no accounts need
 Shamash is named for the Mesopotamian sun god, who crossed the sky each day and saw everything
 beneath it. It puts a few hundred imaging satellites on a live globe, alongside free
 imagery archives, operator tasking plans, fire detections, ship positions, geostationary weather
-imagery and open-source reports. You can see them all on one map and on one clock.
+imagery and open-source conflict reports. You can see them all on one map and on one clock.
 
 ## Contents
 
