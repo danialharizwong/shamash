@@ -46,7 +46,7 @@ imagery and open-source conflict reports. You can see them all on one map and on
 | **Fire detections** | NASA FIRMS VIIRS and MODIS hotspots (24 h / 48 h / 7 d), scaled by radiative power |
 | **Live weather view** | The newest full-disc geostationary imagery (Meteosat, GOES, Himawari) stitched around the globe |
 | **Ships** | AIS positions from Fintraffic (Baltic, no key) and, with a free key, worldwide from aisstream.io |
-| **Intel feed** | Public Telegram channels read into a local store and placed on the map, with optional place extraction by Claude |
+| **Intel feed** | Public Telegram channels read into a local store and placed on the map, with optional place extraction |
 | **Time control** | Run the board clock forward or back at up to 600×, or jump straight to any predicted pass |
 | **Shareable views** | The address bar keeps the view, fleet, focus, basemap and clock, so you can send someone a link |
 
@@ -194,28 +194,7 @@ web/js/         plain ES modules, no bundler
 web/vendor/     MapLibre GL JS, satellite.js, fonts (licences in web/vendor/licenses)
 ```
 
-**Design.** The look is a P1 green-phosphor vector display:
-- Coastlines drawn twice, a blurred bloom under a crisp trace, like a phosphor beam.
-- Scanlines, a slow rolling refresh bar, grain and a curved-glass vignette. All of these switch off with `CRT`.
-- Gold, for the sun god, marks anything you command: your focus point, selections and the clock.
-- Type is Michroma for headings, IBM Plex Mono for text and Share Tech Mono for numbers.
 
-**Changes from Cheyenne**
-- The WATCH next-look board.
-- Persistence trails.
-- Twilight bands and a sub-solar marker.
-- Himawari in the LIVE view.
-- Range rings and a sweeping reticle at the focus.
-- Satellite search by name or NORAD number.
-- Degrees-minutes-seconds input in the locator.
-- IPv4-first networking: on networks with broken IPv6, downloads that took minutes now take seconds.
-- A faster boot.
-- Ship flags looked up from the radio ID (MMSI).
-
-## Credits and licence
-
-Inspired by [Cheyenne](https://github.com/MJCruickshank/cheyenne) by M. J. Cruickshank. Shamash
-uses the same public data sources, but its code is a new implementation.
 
 Shamash is released under the [MIT licence](LICENSE). The bundled libraries and fonts keep their own
 licences: MapLibre GL JS (BSD-3-Clause), satellite.js (MIT), and IBM Plex Mono, Share Tech Mono and
